@@ -83,3 +83,9 @@ app.delete('/api/todos/:todo_id', function(req, res) {
 // listen (start app with node server.js) ======================================
 app.listen(8000);
 console.log("App listening on port 8000");
+
+
+// application -------------------------------------------------------------
+app.get('*', function(req, res) {
+    res.sendFile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+});
