@@ -1,4 +1,7 @@
-myApp = angular.module("myApp", []);
+(function(){
+'strict';
+
+  var myApp = angular.module("myApp", []);
 
   myApp.controller("searchCtrl", function($scope){
 
@@ -12,10 +15,11 @@ myApp = angular.module("myApp", []);
       }
     }
 
-  // This is to reset the search model and all errors from screen.
-  $scope.reset = function(){
-    $scope.search = {}
-    $scope.searchForm.submitted = false;
-  }
+    // This is to reset the search model and all errors from screen.
+    $scope.reset = function(){
+      $scope.search = {}
+      $scope.searchForm.submitted = false;
+    }
 
-});
+  });
+})();

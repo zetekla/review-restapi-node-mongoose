@@ -1,3 +1,6 @@
+(function(){
+'strict';
+var myApp = angular.module("myApp");
 myApp.directive("myValidateAirportCode", function(){
   // requires an isloated model
   return {
@@ -24,3 +27,4 @@ myApp.directive("myValidateAirportCode", function(){
    }
   }
 });
+})();
