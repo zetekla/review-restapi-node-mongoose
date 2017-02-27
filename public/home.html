@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-ng-app="myApp" data-ng-controller="searchCtrl">
+    <div class="errors">
+        <!-- We use submitted to hide all error msgs until its actually submitted-->
+        <ul data-ng-show="searchForm.submitted">
+            <li data-ng-show="searchForm.leaving_from.$invalid">Departure Airport is invalid</li>
+            <li data-ng-show="searchForm.leaving_from.$error.required">Departure Airport is required</li>
+            <li data-ng-show="searchForm.leaving_from.$error.minlength">Departure Airport should be at least 3 charachters</li>
+            <li data-ng-show="searchForm.leaving_from.$error.invalidAiportCode">Airport Code should start with letter A</li>
+            <li data-ng-show="searchForm.$error.incompleteDateOfBirth">Incomplete Date of Birth</li>
+            <li data-ng-show="searchForm.$error.invalidDateOfBith">Invalid Date of Birth</li>
+            <li data-ng-show="searchForm.$error.minorDateOfBirth">Must be an adult</li>
+        </ul>
+    </div>
+
+    <form name="searchForm" novalidate="" role="form">
+      <!-- Required: out of the box validation -->
+      <label for="leaving_from" data-ng-class="{'error-req': searchForm.submitted &amp;&amp; searchForm.leaving_from.$invalid}">From<span class="ada-hide"> City or airport</span>*</label>
+      <input type="text" placeholder="City or airport" id="leaving_from" name="leaving_from"
+        data-ng-model="search.leavingFrom" required data-ng-minlength="3"
+        my-validate-airport-code>
+      <br />
+
+      <!-- Applying the directive to the model holding all parts of the date -->
+      <div my-validate-birth-date data-ng-model="search.dateOfBirth">
+
+        <!-- This could go into a template -->
+        Date Of Birth:
+        <select data-ng-model="search.dateOfBirth.month" required name="monthOfBirth" data-ng-options="month as month for month in months">
+          <option value="" selected="">Month</option>
+        </select>
+        <select data-ng-model="search.dateOfBirth.day" required name="dayOfBirth" data-ng-options="day as day for day in days">
+          <option value="" selected="">Day</option>
+        </select>
+        <select data-ng-model="search.dateOfBirth.year" required name="yearOfBirth" data-ng-options="year as year for year in years">
+          <option value="" selected="">Year</option>
+        </select>
+
+        <!-- This could go into a template -->
+      </div>
+
+      <br />
+
+      <button type="submit" data-ng-click="submitSearch()">submit</button>
+      <button data-ng-click="reset()">reset</button>
+    </form>
+
+    <!-- vendor -->
+    <script data-require="json2" data-semver="0.0.2012100-8" src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
+    <script data-require="angular.js" data-semver="1.5.8" src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+    <script data-require="angular-mocks" data-semver="1.5.8" src="https://code.angularjs.org/1.5.8/angular-mocks.js"></script>
+    <script data-require="underscore.js@1.4.3" data-semver="1.4.3" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore.js"></script>
+    <script data-require="moment.js@2.3.1" data-semver="2.3.1" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.3.1/moment.js"></script>
+    <!-- end vendor -->
+    <script src="script.js"></script>
+</body>
+</html>
