@@ -1,69 +1,29 @@
-<!-- index.html -->
-<!doctype html>
-
-<!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="scotchTodo">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <!-- META -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
-
-    <title>Node/Angular Todo App</title>
-
-    <!-- SCROLLS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
-    <style>
-        html                    { overflow-y:scroll; }
-        body                    { padding-top:50px; }
-        #todo-list              { margin-bottom:30px; }
-    </style>
-
-    <!-- SPELLS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
-    <script src="core.js"></script>
-
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script data-require="angular.js@1.1.4" data-semver="1.1.4" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.js"></script>
+  <script data-require="underscore.js@1.5.1" data-semver="1.5.1" src="//cdn.jsdelivr.net/underscorejs/1.5.1/underscore-min.js"></script>
+  <script data-require="moment.js@*" data-semver="2.5.1" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="searchCtrl.js"></script>
 </head>
-<!-- SET THE CONTROLLER AND GET ALL TODOS -->
-<body ng-controller="mainController">
-    <div class="container">
+<body data-ng-app="myApp" data-ng-controller="searchCtrl">
+  <div class="errors">
+    <ul data-ng-show="searchForm.submitted">
+      <li data-ng-show="searchForm.leaving_from.$invalid">Departure Airport is invalid</li>
+      <li data-ng-show="searchForm.leaving_from.$error.required">Departure Airport is required</li>
+      <li data-ng-show="searchForm.leaving_from.$error.minlength">Departure Airport should be at least 3 charachters</li>
+    </ul>
+  </div>
 
-        <!-- HEADER AND TODO COUNT -->
-        <div class="jumbotron text-center">
-            <h1>I'm a Todo-aholic <span class="label label-info">{{ todos.length }}</span></h1>
-        </div>
+  <form name="searchForm" novalidate="" role="form">
+    <label for="leaving_from" data-ng-class="{'error-req': searchForm.leaving_from.$invalid}">From</label>
+    <input type="text" placeholder="City or airport" id="leaving_from" name="leaving_from" data-ng-model="search.leavingFrom" required data-ng-minlength="3">
 
-        <!-- TODO LIST -->
-        <div id="todo-list" class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-
-                <!-- LOOP OVER THE TODOS IN $scope.todos -->
-                <div class="checkbox" ng-repeat="todo in todos">
-                    <label>
-                        <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
-                    </label>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- FORM TO CREATE TODOS -->
-        <div id="todo-form" class="row">
-            <div class="col-sm-8 col-sm-offset-2 text-center">
-                <form>
-                    <div class="form-group">
-
-                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                        <input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
-                    </div>
-
-                    <!-- createToDo() WILL CREATE NEW TODOS -->
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
-                </form>
-            </div>
-        </div>
-
-    </div>
-
+    <button type="submit" data-ng-click="submitSearch()">submit</button>
+    <button data-ng-click="reset()">reset</button>
+  </form>
 </body>
 </html>
