@@ -1,3 +1,9 @@
+describe('add', function() {
+    it('should add 2 numbers togoether', function() {
+        // assertions here
+        expect('A').toEqual('A');
+    });
+});
 
 describe("myValidateBirthDate", function() {
 
